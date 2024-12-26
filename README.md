@@ -43,12 +43,12 @@ cp example.env .env
 ```
 
 4. Start Docker Desktop if you have it (ignore this step if you only have docker engine)
-5. You have to be in the path of projects_handler where it's the docker-compose.yml file
-5.1. Run the next command if is in a develop environment
+5.1. You have to be in the path of projects_handler where it's the docker-compose.yml file
+5.2. Run the next command if is in a develop environment
 ```sh
   docker compose -f docker-compose-dev.yml up
 ```
-5.2. Run the next command if is in a production environment
+5.3. Run the next command if is in a production environment
 ```sh
   docker compose  up
 ```
