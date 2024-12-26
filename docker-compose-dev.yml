@@ -13,6 +13,7 @@ services:
       - ./api-gateway/.env
     depends_on:
       - projects-ms
+      - tasks-ms
     volumes:
       - ./api-gateway:/var/www/html/projects-handler/api-gateway
       - /var/www/html/projects-handler/api-gateway/node_modules
@@ -49,6 +50,38 @@ services:
     networks:
       - project-ms-network
 
+  tasks-ms:
+    container_name: tasks-ms
+    build: 
+      context: ./tasks-ms
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./tasks-ms/.env
+    volumes:
+      - ./tasks-ms:/var/www/html/tasks-handler/tasks-ms
+      - /var/www/html/tasks-handler/tasks-ms/node_modules
+    depends_on:
+      - mongo-tasks
+    networks:
+      - task-ms-network
+      - projects-handler
+
+  mongo-tasks:
+    image: mongo:7
+    container_name: mongo-tasks
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tsmroot 
+      MONGO_INITDB_ROOT_PASSWORD: toormst
+    volumes:
+      - data-mondo-dev:/data/db
+      - ./tasks-ms/src/resources/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - task-ms-network
+
 networks:
   projects-handler:
     driver: bridge
@@ -56,6 +89,10 @@ networks:
   project-ms-network:
     driver: bridge
     name: project-ms-network
+  task-ms-network:
+    driver: bridge
+    name: task-ms-network
 
 volumes:
   data-postgres-dev:
+  data-mondo-dev:
