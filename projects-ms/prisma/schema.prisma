@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Projects {
-  id String @id @map("_id") @default(uuid())
+  id String @id @default(uuid())
   code String @unique
   title String
   description String

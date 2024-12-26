@@ -2,9 +2,9 @@ FROM node:22
 
 RUN npm i -g pnpm
 
-RUN mkdir -p /var/www/html/projects-ms
+RUN mkdir -p /var/www/html/projects-handler/projects-ms
 
-WORKDIR /var/www/html/projects-ms
+WORKDIR /var/www/html/projects-handler/projects-ms
 
 COPY package*.json .
 
@@ -14,6 +14,6 @@ COPY . .
 
 RUN npx prisma generate
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["pnpm", "run", "start:dev"]

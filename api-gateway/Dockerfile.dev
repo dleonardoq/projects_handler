@@ -2,9 +2,9 @@ FROM node:22
 
 RUN npm i -g pnpm
 
-RUN mkdir -p /var/www/html/projects-ms
+RUN mkdir -p /var/www/html/projects-handler/projects-ms
 
-WORKDIR /var/www/html/projects-ms
+WORKDIR /var/www/html/projects-handler/projects-ms
 
 COPY package*.json .
 

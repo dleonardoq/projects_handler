@@ -1,0 +1,61 @@
+version: '3.9'
+services:
+  api-gateway:
+    container_name: api-gateway
+    build: 
+      context: ./api-gateway
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    networks:
+      - projects-handler
+    env_file:
+      - ./api-gateway/.env
+    depends_on:
+      - projects-ms
+    volumes:
+      - ./api-gateway:/var/www/html/projects-handler/api-gateway
+      - /var/www/html/projects-handler/api-gateway/node_modules
+
+  projects-ms:
+    container_name: projects-ms
+    build: 
+      context: ./projects-ms
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./projects-ms/.env
+    volumes:
+      - ./projects-ms:/var/www/html/projects-handler/projects-ms
+      - /var/www/html/projects-handler/projects-ms/node_modules
+    depends_on:
+      - postgres-projects
+    networks:
+      - project-ms-network
+      - projects-handler
+
+  postgres-projects:
+    image: postgres:17
+    container_name: postgres-projects
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=pjmroot
+      - POSTGRES_PASSWORD=toormjp
+      - POSTGRES_DB=projectsdb
+    volumes:
+      - data-postgres-dev:/var/lib/postgresql/data
+    networks:
+      - project-ms-network
+
+networks:
+  projects-handler:
+    driver: bridge
+    name: projects-handler
+  project-ms-network:
+    driver: bridge
+    name: project-ms-network
+
+volumes:
+  data-postgres-dev:
