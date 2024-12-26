@@ -36,10 +36,10 @@ git clone git@github.com:dleonardoq/projects_handler.git
 cd projects_handler
 ```
 3. Create .env file with example.env file in all projects and follow the steps in example.evn files
-  - Example:
 ```sh
-cd api-gateway
-cp example.env .env
+cp ./api-gateway/example.env ./api-gateway/.env
+cp ./projects-ms/example.env ./projects-ms/.env
+cp ./tasks-ms/example.env ./tasks-ms/.env
 ```
 
 4. Start Docker Desktop if you have it (ignore this step if you only have docker engine)
