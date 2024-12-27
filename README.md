@@ -35,7 +35,7 @@ git clone git@github.com:dleonardoq/projects_handler.git
 ```sh
 cd projects_handler
 ```
-3. Create .env file with example.env file in all projects and follow the steps in example.evn files
+3. Create .env file with example.env file in all projects and FOLLOW THE STEPS IN THE example.evn files
 ```sh
 cp ./api-gateway/example.env ./api-gateway/.env
 cp ./projects-ms/example.env ./projects-ms/.env
