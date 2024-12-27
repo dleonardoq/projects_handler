@@ -13,7 +13,7 @@ export class CreateTaskDto {
 
   @IsString()
   @IsNotEmpty()
-  dscription: string;
+  description: string;
 
   @IsDate()
   @IsNotEmpty()

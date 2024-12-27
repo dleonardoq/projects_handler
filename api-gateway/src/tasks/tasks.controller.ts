@@ -11,7 +11,8 @@ import {
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TASK_MICROSERVICE_KEY } from './services/tasks.services';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { catchError } from 'rxjs';
 
 @Controller('tasks')
 export class TasksController {
@@ -21,17 +22,30 @@ export class TasksController {
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksCliente.send({ cmd: 'createTask' }, createTaskDto);
+    return this.tasksCliente.send({ cmd: 'createTask' }, createTaskDto).pipe(
+      catchError((error) => {
+        throw new RpcException(error);
+      }),
+    );
   }
 
   @Get()
   findAll() {
-    return this.tasksCliente.send({ cmd: 'findAllTasks' }, {});
+    console.log('api-gateway controler findall');
+    return this.tasksCliente.send({ cmd: 'findAllTasks' }, {}).pipe(
+      catchError((error) => {
+        throw new RpcException(error);
+      }),
+    );
   }
 
-  @Get(':id')
+  @Get(':code')
   findOne(@Param('code') code: string) {
-    return this.tasksCliente.send({ cmd: 'findOneTask' }, { code });
+    return this.tasksCliente.send({ cmd: 'findOneTask' }, { code }).pipe(
+      catchError((error) => {
+        throw new RpcException(error);
+      }),
+    );
   }
 
   @Patch(':code')
@@ -40,11 +54,19 @@ export class TasksController {
       ...updateTaskDto,
       code,
     };
-    return this.tasksCliente.send({ cmd: 'updateTask' }, data);
+    return this.tasksCliente.send({ cmd: 'updateTask' }, data).pipe(
+      catchError((error) => {
+        throw new RpcException(error);
+      }),
+    );
   }
 
   @Delete(':code')
   remove(@Param('code') code: string) {
-    return this.tasksCliente.send({ cmd: 'removeTask' }, { code });
+    return this.tasksCliente.send({ cmd: 'removeTask' }, { code }).pipe(
+      catchError((error) => {
+        throw new RpcException(error);
+      }),
+    );
   }
 }

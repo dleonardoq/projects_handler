@@ -15,6 +15,9 @@ export class Task {
   @Prop({ required: true })
   limit_date: Date;
 
+  @Prop({ required: false, default: true, type: Boolean })
+  active: boolean;
+
   @Prop({ required: true })
   status: taskStatus;
 
