@@ -8,6 +8,8 @@ interface EnvVars {
   PROJECTS_MICROSERVICE_HOST: string;
   TASKS_MICROSERVICE_PORT: number;
   TASKS_MICROSERVICE_HOST: string;
+  REDIS_PORT: number;
+  REDIS_HOST: string;
 }
 
 const envSchema = joi
@@ -18,6 +20,8 @@ const envSchema = joi
     PROJECTS_MICROSERVICE_HOST: joi.string().required(),
     TASKS_MICROSERVICE_PORT: joi.number().required(),
     TASKS_MICROSERVICE_HOST: joi.string().required(),
+    REDIS_PORT: joi.number().required(),
+    REDIS_HOST: joi.string().required(),
   })
   .unknown(true);
 
@@ -36,4 +40,6 @@ export const envs = {
   projectsMicroserviceHost: envVars.PROJECTS_MICROSERVICE_HOST,
   tasksMicroservicePort: envVars.TASKS_MICROSERVICE_PORT,
   tasksMicroserviceHost: envVars.TASKS_MICROSERVICE_HOST,
+  redisPort: envVars.REDIS_PORT,
+  redisHost: envVars.REDIS_HOST,
 };
