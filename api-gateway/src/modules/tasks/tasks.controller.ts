@@ -15,7 +15,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { TASK_MICROSERVICE_KEY } from './services/tasks.services';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { catchError } from 'rxjs';
-import { ProjectValidationGuard } from 'src/guards/project-validation.guard';
+import { ProjectValidationGuard } from 'src/common/guards/project-validation.guard';
 
 @UseGuards(ProjectValidationGuard)
 @Controller('tasks')

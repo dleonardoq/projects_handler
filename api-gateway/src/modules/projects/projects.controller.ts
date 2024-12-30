@@ -18,7 +18,6 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { ReturnedProject } from './interfaces/returnedProject';
-
 @Controller('projects')
 export class ProjectsController {
   private readonly logger = new Logger(ProjectsController.name);
@@ -48,7 +47,8 @@ export class ProjectsController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
+    // const cacheKeys = await this.cacheManager.keys('project:*');
     return this.projectsClient.send({ cmd: 'findAllProjects' }, {}).pipe(
       catchError((error) => {
         throw new RpcException(error);
@@ -60,11 +60,15 @@ export class ProjectsController {
   async findOne(@Param('code') code: string) {
     const cacheProject = await this.cacheManager.get<string>(`project:${code}`);
 
-    const cacheProjectJson = JSON.parse(cacheProject);
+    const cacheProjectJson = cacheProject;
 
     if (cacheProjectJson) {
       this.logger.log('Project found in cache');
-      return cacheProjectJson;
+      return {
+        status: HttpStatus.OK,
+        message: 'Project found',
+        data: cacheProjectJson,
+      };
     }
 
     return this.projectsClient.send({ cmd: 'findOneProject' }, { code }).pipe(
