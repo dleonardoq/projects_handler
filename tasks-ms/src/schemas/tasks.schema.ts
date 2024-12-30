@@ -7,6 +7,9 @@ export class Task {
   code: string;
 
   @Prop({ required: true })
+  project_code: string;
+
+  @Prop({ required: true })
   title: string;
 
   @Prop({ required: false })
