@@ -28,4 +28,15 @@ export class Task {
   created_at: Date;
 }
 
-export const TaskSchema = SchemaFactory.createForClass(Task);
+const TaskSchema = SchemaFactory.createForClass(Task);
+
+TaskSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    delete ret._id;
+    delete ret.__v;
+    delete ret.active;
+    return ret;
+  },
+});
+
+export { TaskSchema };
