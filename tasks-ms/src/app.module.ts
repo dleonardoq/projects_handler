@@ -5,7 +5,7 @@ import { envs } from './common/envs';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      `mongodb://${envs.mongoUser}:${envs.mongoPassword}@${envs.mongoHost}:27017/${envs.mongoDb}`,
+      `mongodb://${envs.mongoUser}:${envs.mongoPassword}@${envs.mongoHost}:${envs.mongoPort}/${envs.mongoDb}`,
     ),
     TasksModule,
   ],

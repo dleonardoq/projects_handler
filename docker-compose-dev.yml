@@ -75,14 +75,32 @@ services:
       - ./tasks-ms:/var/www/html/projects-handler/tasks-ms
       - /var/www/html/projects-handler/tasks-ms/node_modules
     depends_on:
-      - mongo-tasks
+      - mongo-db
     networks:
-      - task-ms-network
+      - mongodb-network
+      - projects-handler
+    
+  users-ms:
+    container_name: users-ms
+    build: 
+      context: ./users-ms
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./users-ms/.env
+    volumes:
+      - ./users-ms:/var/www/html/projects-handler/users-ms
+      - /var/www/html/projects-handler/users-ms/node_modules
+    depends_on:
+      - mongo-db
+    networks:
+      - mongodb-network
       - projects-handler
 
-  mongo-tasks:
+  mongo-db:
     image: mongo:7
-    container_name: mongo-tasks
+    container_name: mongo-db
     ports:
       - "27017:27017"
     environment:
@@ -90,9 +108,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: toormst
     volumes:
       - data-mondo-dev:/data/db
-      - ./tasks-ms/src/resources/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./tasks-ms/src/resources/tasks-db-init.js:/docker-entrypoint-initdb.d/tasks-db-init.js
+      - ./users-ms/src/resources/users-db-init.js:/docker-entrypoint-initdb.d/users-db-init.js
     networks:
-      - task-ms-network
+      - mongodb-network
 
 networks:
   projects-handler:
@@ -101,9 +120,9 @@ networks:
   project-ms-network:
     driver: bridge
     name: project-ms-network
-  task-ms-network:
+  mongodb-network:
     driver: bridge
-    name: task-ms-network
+    name: mongodb-network
   gateway-network:
     driver: bridge
     name: gateway-network

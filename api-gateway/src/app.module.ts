@@ -4,6 +4,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import * as redisStore from 'cache-manager-redis-store';
 import { envs } from './common/envs';
+import { UsersModule } from './modules/users/users.module';
 @Module({
   imports: [
     CacheModule.register({
@@ -14,6 +15,7 @@ import { envs } from './common/envs';
     }),
     ProjectsModule,
     TasksModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
