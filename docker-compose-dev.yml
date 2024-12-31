@@ -72,8 +72,8 @@ services:
     env_file:
       - ./tasks-ms/.env
     volumes:
-      - ./tasks-ms:/var/www/html/tasks-handler/tasks-ms
-      - /var/www/html/tasks-handler/tasks-ms/node_modules
+      - ./tasks-ms:/var/www/html/projects-handler/tasks-ms
+      - /var/www/html/projects-handler/tasks-ms/node_modules
     depends_on:
       - mongo-tasks
     networks:
