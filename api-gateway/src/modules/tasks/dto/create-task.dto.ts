@@ -9,10 +9,6 @@ export class CreateTaskDto {
 
   @IsString()
   @IsNotEmpty()
-  project_code: string;
-
-  @IsString()
-  @IsNotEmpty()
   title: string;
 
   @IsString()

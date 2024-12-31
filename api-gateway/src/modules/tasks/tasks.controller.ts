@@ -26,12 +26,12 @@ export class TasksController {
 
   @Post(':project_code')
   create(
-    @Param('project_code') project_code: string,
+    @Param('project_code') projectCode: string,
     @Body() createTaskDto: CreateTaskDto,
   ) {
     const taskData = {
-      projectCode: project_code,
-      createTaskDto,
+      ...createTaskDto,
+      project_code: projectCode,
     };
     return this.tasksCliente.send({ cmd: 'createTask' }, taskData).pipe(
       catchError((error) => {
