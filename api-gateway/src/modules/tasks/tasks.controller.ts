@@ -9,6 +9,7 @@ import {
   Inject,
   UseGuards,
   SetMetadata,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -25,16 +26,9 @@ export class TasksController {
     @Inject(TASK_MICROSERVICE_KEY) private readonly tasksCliente: ClientProxy,
   ) {}
 
-  @Post(':project_code')
-  create(
-    @Param('project_code') projectCode: string,
-    @Body() createTaskDto: CreateTaskDto,
-  ) {
-    const taskData = {
-      ...createTaskDto,
-      project_code: projectCode,
-    };
-    return this.tasksCliente.send({ cmd: 'createTask' }, taskData).pipe(
+  @Post()
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksCliente.send({ cmd: 'createTask' }, createTaskDto).pipe(
       catchError((error) => {
         throw new RpcException(error);
       }),
@@ -61,16 +55,17 @@ export class TasksController {
     );
   }
 
-  @Patch(':project_code/:code')
-  update(
-    @Param('project_code') projecCode: string,
-    @Param('code') code: string,
-    @Body() updateTaskDto: UpdateTaskDto,
-  ) {
+  @Patch(':code')
+  update(@Param('code') code: string, @Body() updateTaskDto: UpdateTaskDto) {
+    if ('code' in updateTaskDto) {
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: `Code property can not be updated`,
+      });
+    }
     const data = {
       ...updateTaskDto,
       code,
-      projecCode,
     };
     return this.tasksCliente.send({ cmd: 'updateTask' }, data).pipe(
       catchError((error) => {

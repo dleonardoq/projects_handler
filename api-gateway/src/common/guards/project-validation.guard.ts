@@ -29,7 +29,7 @@ export class ProjectValidationGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest<Request>();
-    const { project_code } = request.params;
+    const { project_code } = request.body;
     if (!project_code) {
       throw new HttpException(
         'Project project_code is required',

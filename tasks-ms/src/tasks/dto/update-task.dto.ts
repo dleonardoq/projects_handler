@@ -6,4 +6,8 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   @IsString()
   @IsNotEmpty()
   code: string;
+
+  @IsString()
+  @IsNotEmpty()
+  project_code: string;
 }
