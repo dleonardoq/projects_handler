@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RpcCustomException } from 'src/exceptions/rpc-custom-exception';
 import { RpcException } from '@nestjs/microservices';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +16,17 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const createdUser = new this.usersModel(createUserDto);
+      const { password, ...restData } = createUserDto;
+
+      const salt = await bcrypt.genSalt();
+      const hashedPass = await bcrypt.hash(password, salt);
+
+      const userData = {
+        ...restData,
+        password: hashedPass,
+      };
+
+      const createdUser = new this.usersModel(userData);
       await createdUser.save();
 
       if (!createdUser) {

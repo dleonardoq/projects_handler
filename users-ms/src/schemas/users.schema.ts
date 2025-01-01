@@ -39,6 +39,7 @@ UsersSchema.set('toJSON', {
   transform: (doc, ret) => {
     delete ret._id;
     delete ret.__v;
+    delete ret.password;
     delete ret.active;
     return ret;
   },
