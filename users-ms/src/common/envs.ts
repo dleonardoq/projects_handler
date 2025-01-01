@@ -9,6 +9,7 @@ interface EnvVars {
   MONGO_HOST: string;
   MONGO_DB: string;
   MONGO_PORT: number;
+  JWT_KEY: string;
 }
 
 const envSchema = joi
@@ -20,6 +21,7 @@ const envSchema = joi
     MONGO_HOST: joi.string().required(),
     MONGO_DB: joi.string().required(),
     MONGO_PORT: joi.number().required(),
+    JWT_KEY: joi.string().required(),
   })
   .unknown(true);
 
@@ -39,4 +41,5 @@ export const envs = {
   mongoHost: envVars.MONGO_HOST,
   mongoDb: envVars.MONGO_DB,
   mongoPort: envVars.MONGO_PORT,
+  jwtSecretKey: envVars.JWT_KEY,
 };

@@ -6,6 +6,8 @@ import * as redisStore from 'cache-manager-redis-store';
 import { envs } from './common/envs';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './common/constants';
 @Module({
   imports: [
     CacheModule.register({
@@ -13,6 +15,11 @@ import { AuthModule } from './modules/auth/auth.module';
       store: redisStore,
       host: envs.redisHost,
       port: envs.redisHost,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '1h' },
     }),
     ProjectsModule,
     TasksModule,

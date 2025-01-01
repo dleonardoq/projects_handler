@@ -12,6 +12,7 @@ interface EnvVars {
   USERS_MICROSERVICE_HOST: string;
   REDIS_PORT: number;
   REDIS_HOST: string;
+  JWT_KEY: string;
 }
 
 const envSchema = joi
@@ -26,6 +27,7 @@ const envSchema = joi
     USERS_MICROSERVICE_HOST: joi.string().required(),
     REDIS_PORT: joi.number().required(),
     REDIS_HOST: joi.string().required(),
+    JWT_KEY: joi.string().required(),
   })
   .unknown(true);
 
@@ -48,4 +50,5 @@ export const envs = {
   usersMicroserviceHost: envVars.USERS_MICROSERVICE_HOST,
   redisPort: envVars.REDIS_PORT,
   redisHost: envVars.REDIS_HOST,
+  jwtSecretKey: envVars.JWT_KEY,
 };

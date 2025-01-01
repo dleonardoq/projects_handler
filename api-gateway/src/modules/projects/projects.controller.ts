@@ -9,6 +9,7 @@ import {
   Inject,
   HttpStatus,
   Logger,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -18,6 +19,9 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { ReturnedProject } from './interfaces/returnedProject';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+
+@UseGuards(AuthGuard)
 @Controller('projects')
 export class ProjectsController {
   private readonly logger = new Logger(ProjectsController.name);

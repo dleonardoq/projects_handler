@@ -16,8 +16,9 @@ import { TASK_MICROSERVICE_KEY } from './services/tasks.services';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { catchError } from 'rxjs';
 import { ProjectValidationGuard } from 'src/common/guards/project-validation.guard';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
-@UseGuards(ProjectValidationGuard)
+@UseGuards(ProjectValidationGuard, AuthGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(

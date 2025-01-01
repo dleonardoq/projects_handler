@@ -12,7 +12,10 @@ export class ExceptionFilter implements ExceptionFilter {
 
     const rpcException = exception.getError() as rpcInterfaceException;
 
-    const status = rpcException.status || HttpStatus.INTERNAL_SERVER_ERROR;
+    const status =
+      typeof rpcException.status === 'number'
+        ? rpcException.status
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const errorData = {
       statusCode: status,

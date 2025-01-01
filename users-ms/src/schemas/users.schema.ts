@@ -37,6 +37,7 @@ const UsersSchema = SchemaFactory.createForClass(Users);
 
 UsersSchema.set('toJSON', {
   transform: (doc, ret) => {
+    ret.access_token = '';
     delete ret._id;
     delete ret.__v;
     delete ret.password;

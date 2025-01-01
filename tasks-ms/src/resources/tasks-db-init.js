@@ -1,7 +1,7 @@
-db = db.getSiblingDB('tasks-ms');
+db = db.getSiblingDB('tasks');
 db.createUser({
   user: 'tsmroot',
   pwd: 'toormst',
-  roles: [{ role: 'readWrite', db: 'tasks-ms' }],
+  roles: [{ role: 'readWrite', db: 'tasks' }],
 });
-db.createCollection('tasks-ms');
+db.createCollection('tasks');
