@@ -5,5 +5,5 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class UpdateProjectDto extends PartialType(CreateProjectDto) {
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code: string = '';
 }

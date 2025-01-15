@@ -3,13 +3,13 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateProjectDto {
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code: string = '';
 
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title: string = '';
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description: string = '';
 }
