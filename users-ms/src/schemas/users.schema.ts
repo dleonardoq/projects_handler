@@ -3,40 +3,40 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class Users {
   @Prop({ required: true })
-  document_type: string;
+  document_type: string = '';
 
   @Prop({ required: true })
-  document_number: number;
+  document_number: number = 0;
 
   @Prop({ required: true })
-  name: string;
+  name: string = '';
 
   @Prop({ required: true })
-  last_name: string;
+  last_name: string = '';
 
   @Prop({ required: true })
-  age: number;
+  age: number = 0;
 
   @Prop({ required: true })
-  birth_date: Date;
+  birth_date: Date = new Date();
 
   @Prop({ required: false, default: true, type: Boolean })
-  active: boolean;
+  active: boolean = true;
 
   @Prop({ required: true, unique: true })
-  email: string;
+  email: string = '';
 
   @Prop({ required: true, unique: true })
-  password: string;
+  password: string = '';
 
   @Prop({ required: true, default: Date.now })
-  created_at: Date;
+  created_at: Date = new Date();
 }
 
 const UsersSchema = SchemaFactory.createForClass(Users);
 
 UsersSchema.set('toJSON', {
-  transform: (doc, ret) => {
+  transform: (_, ret) => {
     ret.access_token = '';
     delete ret._id;
     delete ret.__v;

@@ -11,35 +11,35 @@ import {
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  document_type: string;
+  document_type: string = '';
 
   @IsNumber()
   @IsNotEmpty()
-  document_number: number;
+  document_number: number = 0;
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name: string = '';
 
   @IsString()
   @IsNotEmpty()
-  last_name: string;
+  last_name: string = '';
 
   @IsNumber()
   @IsPositive()
   @Min(18)
-  age: number;
+  age: number = 0;
 
   @IsDate()
   @IsNotEmpty()
   @Type(() => Date)
-  birth_date: Date;
+  birth_date: Date = new Date();
 
   @IsString()
   @IsNotEmpty()
-  email: string;
+  email: string = '';
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password: string = '';
 }
