@@ -81,6 +81,7 @@ export class TasksController {
   ) {
     return this.tasksCliente.send({ cmd: 'removeTask' }, { code }).pipe(
       catchError((error) => {
+        console.log(projectCode);
         throw new RpcException(error);
       }),
     );
