@@ -5,26 +5,26 @@ import { taskStatus } from 'src/config/taskStatus';
 export class CreateTaskDto {
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code: string = '';
 
   @IsString()
   @IsNotEmpty()
-  project_code: string;
+  project_code: string = '';
 
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title: string = '';
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description: string = '';
 
   @IsDate()
   @IsNotEmpty()
   @Type(() => Date)
-  limit_date: Date;
+  limit_date: Date = new Date();
 
   @IsEnum(taskStatus)
   @IsNotEmpty()
-  status: taskStatus;
+  status: taskStatus = taskStatus.PENDING;
 }

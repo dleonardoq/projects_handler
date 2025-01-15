@@ -5,9 +5,9 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code: string = '';
 
   @IsString()
   @IsNotEmpty()
-  project_code: string;
+  project_code: string = '';
 }
