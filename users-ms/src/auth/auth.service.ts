@@ -38,7 +38,7 @@ export class AuthService {
         );
       }
 
-      const payload = { sub: user.document_number, username: user.email };
+      const payload = { userId: user.document_number, username: user.email };
       const access_token = await this.jwService.sign(payload);
 
       return {
